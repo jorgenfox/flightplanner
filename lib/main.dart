@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flightplanner/pages/homepage.dart';
+import 'package:flightplanner/core/bottom_nav_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        '/homepage':(context) => HomePage(),
+        '/navbar':(context) => const BottomNavBar(),
+        '/homepage':(context) => const HomePage(),
 
       },
     );
