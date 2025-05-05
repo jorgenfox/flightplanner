@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flightplanner/pages/homepage.dart';
 import 'package:flightplanner/pages/lennudpage.dart';
+import 'package:flightplanner/pages/istekohadpage.dart';
 
 class FlightData {
   final String departure;
@@ -33,13 +34,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void initState() {
     super.initState();
     _screens = [
-      HomePage(onSearch: (data) {
-        flightDataNotifier.value = data;
-        setState(() {
-          _currentIndex = 1; // switch to LennudPage
-        });
-      }),
+      HomePage(
+        onSearch: (data) {
+          flightDataNotifier.value = data;
+          setState(() {
+            _currentIndex = 1; // switch to LennudPage
+          });
+        },
+      ),
       LennudPage(flightDataNotifier: flightDataNotifier),
+      istekohadpage(),
     ];
   }
 
@@ -49,12 +53,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index) => setState(() {
-          _currentIndex = index;
-        }),
+        onTap:
+            (index) => setState(() {
+              _currentIndex = index;
+            }),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Otsing"),
           BottomNavigationBarItem(icon: Icon(Icons.flight), label: "Lennud"),
+          BottomNavigationBarItem(icon: Icon(Icons.event_seat),label: "Istekohad"), //Testimiseks siin
         ],
       ),
     );
