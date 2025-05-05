@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flightplanner/core/bottom_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function(FlightData) onSearch;
+
+  const HomePage({super.key, required this.onSearch});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -18,77 +21,40 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Lennuotsing")),
       body: Container(
-        color: Colors.white, // Seadistame taustavärviks valge
+        color: Colors.white,
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min, // Keeps the column compact
           children: [
-            // Alguspunkti sisendväli
             TextField(
               controller: _departureController,
-              decoration: InputDecoration(
-                labelText: 'Alguspunkt',
-                filled: true,
-                fillColor: Colors.grey[200], // Hall taust
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black), // Must piirjoon
-                ),
-              ),
+              decoration: inputStyle("Alguspunkt"),
             ),
             const SizedBox(height: 16),
-
-            // Sihtkoha sisendväli
             TextField(
               controller: _destinationController,
-              decoration: InputDecoration(
-                labelText: 'Sihtkoht',
-                filled: true,
-                fillColor: Colors.grey[200], // Hall taust
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black), // Must piirjoon
-                ),
-              ),
+              decoration: inputStyle("Sihtkoht"),
             ),
             const SizedBox(height: 16),
-
-            // Kuupäeva sisendväli
             TextField(
               controller: _dateController,
-              decoration: InputDecoration(
-                labelText: 'Kuupäev',
-                filled: true,
-                fillColor: Colors.grey[200], // Hall taust
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black), // Must piirjoon
-                ),
-              ),
+              decoration: inputStyle("Kuupäev"),
             ),
             const SizedBox(height: 16),
-
-            // Hinna sisendväli
             TextField(
               controller: _priceController,
-              decoration: InputDecoration(
-                labelText: 'Hind',
-                filled: true,
-                fillColor: Colors.grey[200], // Hall taust
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black), // Must piirjoon
-                ),
-              ),
+              decoration: inputStyle("Hind"),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
-
-            // Otsingunupp
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/lennudpage', arguments: {
-                  'departure': _departureController.text,
-                  'destination': _destinationController.text,
-                  'date': _dateController.text,
-                  'price': _priceController.text,
-                });
+                final flightData = FlightData(
+                  departure: _departureController.text,
+                  destination: _destinationController.text,
+                  date: _dateController.text,
+                  price: _priceController.text,
+                );
+                widget.onSearch(flightData);
               },
               child: const Text("Otsi Lende"),
             ),
@@ -97,5 +63,15 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
+  InputDecoration inputStyle(String label) {
+    return InputDecoration(
+      labelText: label,
+      filled: true,
+      fillColor: Colors.grey[200],
+      border: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black),
+      ),
+    );
+  }
+}

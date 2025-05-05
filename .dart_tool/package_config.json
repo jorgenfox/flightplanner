@@ -44,12 +44,6 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "fluentui_system_icons",
-      "rootUri": "file:///Users/jorgenrebane/.pub-cache/hosted/pub.dev/fluentui_system_icons-1.1.273",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter",
       "rootUri": "file:///Users/jorgenrebane/development/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -176,7 +170,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-05-04T16:53:55.786706Z",
+  "generated": "2025-05-04T17:25:02.965879Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///Users/jorgenrebane/development/flutter",

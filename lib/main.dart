@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flightplanner/pages/homepage.dart';
 import 'package:flightplanner/core/bottom_nav_bar.dart';
 
 void main() {
@@ -14,17 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.blue,
-            foregroundColor: Colors.white,
-          )
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+        ),
       ),
-      home: const HomePage(),
-      routes: {
-        '/navbar':(context) => const BottomNavBar(),
-        '/homepage':(context) => const HomePage(),
-
-      },
+      home: const BottomNavBar(),
     );
   }
 }
