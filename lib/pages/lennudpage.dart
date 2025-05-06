@@ -9,7 +9,13 @@ class LennudPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Lennud")),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text("Lennud"),
+      ),
       body: ValueListenableBuilder<FlightData?>(
         valueListenable: flightDataNotifier,
         builder: (context, data, child) {

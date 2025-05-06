@@ -6,7 +6,18 @@ void main() => runApp(SeatBookingApp());
 class SeatBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Vali istekohad', home: istekohadpage());
+    return MaterialApp(
+      title: 'Vali istekohad',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.grey.shade100,
+        textTheme: Theme.of(
+          context,
+        ).textTheme.apply(fontFamily: 'Arial', bodyColor: Colors.black87),
+      ),
+      home: istekohadpage(),
+    );
   }
 }
 
@@ -16,13 +27,13 @@ class istekohadpage extends StatefulWidget {
 }
 
 class _istekohadpageState extends State<istekohadpage> {
-  final int maxSelectableSeats = 2; // implementeerida, prg testimiseks ainult
+  final int maxSelectableSeats = 2;
   final int rows = 31;
   final int cols = 5;
   final Color availableColor = Colors.green;
   final Color selectedColor = Colors.blue;
   final Color bookedColor = Colors.grey;
-  final Color exitRowColor = Colors.yellow.shade700;
+  final Color exitRowColor = Colors.amber.shade700;
   final Color businessClassColor = Colors.purple.shade400;
 
   List<String> selectedSeatLabels = [];
@@ -64,13 +75,12 @@ class _istekohadpageState extends State<istekohadpage> {
   }
 
   double? getSeatPrice(int row) {
-    if (row < 5 || row == 14) return row == 14 ? 35.0 : 55.0;
+    if (row < 5 || row == 14) return row == 14 ? 15.0 : 40.0;
     return null;
   }
 
   double getTotalExtraCost() {
     double total = 0.0;
-
     for (int row = 0; row < seatMap.length; row++) {
       for (int col = 0; col < seatMap[row].length; col++) {
         if (seatMap[row][col] == SeatStatus.selected) {
@@ -79,7 +89,6 @@ class _istekohadpageState extends State<istekohadpage> {
         }
       }
     }
-
     return total;
   }
 
@@ -93,16 +102,16 @@ class _istekohadpageState extends State<istekohadpage> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 20,
-          height: 20,
+          width: 18,
+          height: 18,
           margin: EdgeInsets.only(right: 6),
           decoration: BoxDecoration(
             color: color,
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(3),
             border: Border.all(color: Colors.black26),
           ),
         ),
-        Text(label, style: TextStyle(fontSize: 12)),
+        Text(label, style: TextStyle(fontSize: 13)),
       ],
     );
   }
@@ -110,21 +119,25 @@ class _istekohadpageState extends State<istekohadpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Vali istekohad')),
+      appBar: AppBar(
+        title: Text('Vali istekohad'),
+        centerTitle: true,
+        elevation: 1,
+      ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            padding: const EdgeInsets.symmetric(vertical: 14.0),
             child: Wrap(
               alignment: WrapAlignment.center,
-              spacing: 10,
-              runSpacing: 8,
+              spacing: 15,
+              runSpacing: 10,
               children: [
-                buildLegendItem(bookedColor, 'Broneeritud'),
                 buildLegendItem(availableColor, 'Vaba'),
                 buildLegendItem(selectedColor, 'Valitud'),
                 buildLegendItem(exitRowColor, 'Rohkem jalaruumi'),
                 buildLegendItem(businessClassColor, 'Äriklass'),
+                buildLegendItem(bookedColor, 'Broneeritud'),
               ],
             ),
           ),
@@ -135,7 +148,7 @@ class _istekohadpageState extends State<istekohadpage> {
                 final isExitRow = row == 14;
                 return Padding(
                   padding: EdgeInsets.only(
-                    top: isExitRow ? 24.0 : 4.0,
+                    top: isExitRow ? 22.0 : 4.0,
                     bottom: 4.0,
                   ),
                   child: Row(
@@ -154,7 +167,7 @@ class _istekohadpageState extends State<istekohadpage> {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.grey.shade400,
+                                  color: Colors.grey.shade500,
                                 ),
                               ),
                             ),
@@ -165,13 +178,12 @@ class _istekohadpageState extends State<istekohadpage> {
                       Color color;
                       switch (status) {
                         case SeatStatus.available:
-                          if (row == 14) {
-                            color = exitRowColor; // Exit row
-                          } else if (row < 5) {
-                            color = businessClassColor; // Business class
-                          } else {
-                            color = availableColor;
-                          }
+                          color =
+                              row == 14
+                                  ? exitRowColor
+                                  : row < 5
+                                  ? businessClassColor
+                                  : availableColor;
                           break;
                         case SeatStatus.selected:
                           color = selectedColor;
@@ -186,36 +198,38 @@ class _istekohadpageState extends State<istekohadpage> {
                       final price = getSeatPrice(row);
 
                       return Padding(
-                        padding: const EdgeInsets.all(3.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: GestureDetector(
                           onTap: () => toggleSeat(row, col),
-                          child: Container(
-                            width: 64,
-                            height: 64,
-                            decoration: BoxDecoration(
-                              color: color,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    getSeatLabel(row, col),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  if (price != null)
+                          child: Material(
+                            elevation: 2,
+                            borderRadius: BorderRadius.circular(6),
+                            color: color,
+                            child: Container(
+                              width: 64,
+                              height: 64,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
                                     Text(
-                                      '+€${price.toInt()}',
+                                      getSeatLabel(row, col),
                                       style: TextStyle(
-                                        fontSize: 8,
+                                        fontSize: 14,
                                         color: Colors.white,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                ],
+                                    if (price != null)
+                                      Text(
+                                        '+€${price.toInt()}',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -228,33 +242,38 @@ class _istekohadpageState extends State<istekohadpage> {
             ),
           ),
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 150),
+            duration: Duration(milliseconds: 200),
             child:
                 hasSelectedSeats()
                     ? Container(
                       key: ValueKey('bottom_bar'),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
+                        horizontal: 18,
+                        vertical: 14,
                       ),
-                      color: Colors.white,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(color: Colors.black12, blurRadius: 6),
+                        ],
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${selectedSeatLabels.join(", ")}', //TODO
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          Text(
                             'Lisatasu: €${getTotalExtraCost().toStringAsFixed(0)}',
                             style: TextStyle(
                               fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.teal,
+                              foregroundColor: Colors.white,
+                            ),
                             onPressed: () {
-                              // Handle confirm logic
+                              // TODO: Implement seat confirmation logic
                             },
                             child: Text('Kinnita kohad'),
                           ),
@@ -270,34 +289,3 @@ class _istekohadpageState extends State<istekohadpage> {
 }
 
 enum SeatStatus { available, selected, booked, aisle }
-
-/*
-CONFIRM BUTTON
-
-Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => TicketPage(seats: selectedSeatLabels),
-  ),
-);
-
-FOR RECEIVEING DART FILE
-
-class TicketPage extends StatelessWidget {
-  final List<String> seats;
-
-  const TicketPage({required this.seats});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Your Tickets')),
-      body: Center(
-        child: Text('Seats: ${seats.join(", ")}'),
-      ),
-    );
-  }
-}
-
-
-*/
