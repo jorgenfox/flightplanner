@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flightplanner/pages/homepage.dart';
 import 'package:flightplanner/pages/lennudpage.dart';
 import 'package:flightplanner/pages/istekohadpage.dart';
+import 'package:flightplanner/pages/ticketpage.dart';
 
 class FlightData {
   final String departure;
@@ -44,6 +45,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
       LennudPage(flightDataNotifier: flightDataNotifier),
       istekohadpage(),
+      TicketsScreen(),
     ];
   }
 
@@ -61,6 +63,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Otsing"),
           BottomNavigationBarItem(icon: Icon(Icons.flight), label: "Lennud"),
           BottomNavigationBarItem(icon: Icon(Icons.event_seat),label: "Istekohad"), //Testimiseks siin
+          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket), label: 'Piletid',
+          ),
+
         ],
       ),
     );
