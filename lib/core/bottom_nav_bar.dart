@@ -1,5 +1,6 @@
 // lib/core/bottom_nav_bar.dart
 
+import 'package:flightplanner/pages/accountpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flightplanner/pages/homepage.dart';
 import 'package:flightplanner/pages/lennudpage.dart';
@@ -35,6 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       LennudPage(), // LennudPage kasutamine
       istekohadpage(),
       TicketsScreen(),
+      AccountPage(),
     ];
   }
 
@@ -52,6 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           BottomNavigationBarItem(icon: Icon(Icons.flight), label: "Lennud"),
           BottomNavigationBarItem(icon: Icon(Icons.event_seat), label: "Istekohad"),
           BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket), label: 'Piletid'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Konto'),
         ],
       ),
     );
