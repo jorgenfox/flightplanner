@@ -1,22 +1,11 @@
+// lib/core/bottom_nav_bar.dart
+
 import 'package:flutter/material.dart';
 import 'package:flightplanner/pages/homepage.dart';
 import 'package:flightplanner/pages/lennudpage.dart';
 import 'package:flightplanner/pages/istekohadpage.dart';
 import 'package:flightplanner/pages/ticketpage.dart';
-
-class FlightData {
-  final String departure;
-  final String destination;
-  final String date;
-  final String price;
-
-  FlightData({
-    required this.departure,
-    required this.destination,
-    required this.date,
-    required this.price,
-  });
-}
+import 'package:flightplanner/models/FlightData.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -43,7 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           });
         },
       ),
-      LennudPage(flightDataNotifier: flightDataNotifier),
+      LennudPage(), // LennudPage kasutamine
       istekohadpage(),
       TicketsScreen(),
     ];
@@ -55,17 +44,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap:
-            (index) => setState(() {
-              _currentIndex = index;
-            }),
+        onTap: (index) => setState(() {
+          _currentIndex = index;
+        }),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Otsing"),
           BottomNavigationBarItem(icon: Icon(Icons.flight), label: "Lennud"),
-          BottomNavigationBarItem(icon: Icon(Icons.event_seat),label: "Istekohad"), //Testimiseks siin
-          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket), label: 'Piletid',
-          ),
-
+          BottomNavigationBarItem(icon: Icon(Icons.event_seat), label: "Istekohad"),
+          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket), label: 'Piletid'),
         ],
       ),
     );
