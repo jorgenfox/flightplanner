@@ -32,4 +32,14 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
-
+  fonts:
+    - family: Noto Sans
+      fonts:
+        - asset: assets/fonts/NotoSansDisplay-BlackItalic.ttf
+        - asset: assets/fonts/NotoSansDisplay-Medium.ttf
+        - asset: assets/fonts/NotoSansDisplay-Regular.ttf
+        - asset: assets/fonts/NotoSansDisplay-Bold.ttf
+          weight: 700
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-VariableFont.ttf

@@ -10,10 +10,10 @@ class TicketsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Piletid'),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.lightBlue,
         elevation: 0,
       ),
-      backgroundColor: const Color(0xFFF4F6FD),
+      backgroundColor: Colors.lightBlue,
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -109,14 +109,33 @@ class _TicketCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               children: [
-                _InfoRow(label1: "Reisija", value1: "JÖRGEN",
-                    label2: "Dokumendi nr", value2: "1234567890"),
+                _InfoRow(
+                  label1: "Reisija",
+                  value1: "JÖRGEN",
+                  label2: "Dokumendi nr",
+                  value2: "1234567890",
+                ),
                 const SizedBox(height: 10),
-                _InfoRow(label1: "Pileti nr", value1: "2323 4556 6789",
-                    label2: "Tellimuse nr", value2: "B2SG28"),
+                _InfoRow(
+                  label1: "Pileti nr",
+                  value1: "2323 4556 6789",
+                  label2: "Tellimuse nr",
+                  value2: "B2SG28",
+                ),
                 const SizedBox(height: 10),
-                _InfoRow(label1: "Maksevahend", value1: "**** 2462",
-                    label2: "Hind", value2: "249.99€"),
+                _InfoRow(
+                  label1: "Maksevahend",
+                  value1: "**** 2462",
+                  label2: "Hind",
+                  value2: "249.99€",
+                ),
+                const SizedBox(height: 10),
+                _InfoRow(
+                  label1: "Iste",
+                  value1: "5D",
+                  label2: "Iste",
+                  value2: "9A",
+                ),
               ],
             ),
           ),
@@ -151,7 +170,10 @@ class _AirportCode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(code, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(
+          code,
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
         Text(city, style: const TextStyle(color: Colors.grey)),
       ],
     );
@@ -181,7 +203,10 @@ class _InfoRow extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label1, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+            Text(
+              label1,
+              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+            ),
             Text(value1, style: const TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
@@ -189,7 +214,10 @@ class _InfoRow extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(label2, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+            Text(
+              label2,
+              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+            ),
             Text(value2, style: const TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),

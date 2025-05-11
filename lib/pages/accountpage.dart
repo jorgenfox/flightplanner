@@ -9,16 +9,17 @@ class AccountPage extends StatelessWidget {
     const String username = "Grupp 2";
     const String email = "Grupp2@tlu.ee";
     const String phone = "+372 1234 5678";
-    const String profilePictureUrl = "https://www.tlu.ee/public/esindustrykis-2018/files/mobile/1.jpg"; // Replace with actual image URL or asset
+    const String profilePictureUrl =
+        "https://www.tlu.ee/public/esindustrykis-2018/files/mobile/1.jpg"; // Replace with actual image URL or asset
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Konto"),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
       ),
-      backgroundColor: const Color(0xFFF4F6FD),
+      backgroundColor: Colors.lightBlue,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -39,16 +40,13 @@ class AccountPage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],
               ),
@@ -61,21 +59,13 @@ class AccountPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 12),
-            _InfoCard(
-              icon: Icons.email,
-              label: "E-post",
-              value: email,
-            ),
+            _InfoCard(icon: Icons.email, label: "E-post", value: email),
             const SizedBox(height: 12),
-            _InfoCard(
-              icon: Icons.phone,
-              label: "Telefon",
-              value: phone,
-            ),
+            _InfoCard(icon: Icons.phone, label: "Telefon", value: phone),
 
             const SizedBox(height: 32),
 
@@ -85,7 +75,7 @@ class AccountPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: Colors.white,
               ),
             ),
             const SizedBox(height: 12),
@@ -95,7 +85,10 @@ class AccountPage extends StatelessWidget {
               onPressed: () {
                 // TODO: Implement profile editing functionality
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Profiili muutmine pole veel saadaval")),
+                  const SnackBar(
+                    backgroundColor: Colors.black45,
+                    content: Text("Profiili muutmine pole veel saadaval"),
+                  ),
                 );
               },
             ),
@@ -106,7 +99,10 @@ class AccountPage extends StatelessWidget {
               onPressed: () {
                 // TODO: Implement password change functionality
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Parooli muutmine pole veel saadaval")),
+                  const SnackBar(
+                    backgroundColor: Colors.black45,
+                    content: Text("Parooli muutmine pole veel saadaval"),
+                  ),
                 );
               },
             ),
@@ -117,7 +113,10 @@ class AccountPage extends StatelessWidget {
               onPressed: () {
                 // TODO: Implement logout functionality
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Väljalogimine pole veel saadaval")),
+                  const SnackBar(
+                    backgroundColor: Colors.black45,
+                    content: Text("Väljalogimine pole veel saadaval"),
+                  ),
                 );
               },
               color: Colors.redAccent,
@@ -165,10 +164,7 @@ class _InfoCard extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
               Text(
                 value,

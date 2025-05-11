@@ -13,14 +13,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.lightBlue,
+        fontFamily: "Inter",
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue,
+          titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          backgroundColor: Colors.lightBlue,
           foregroundColor: Colors.white,
+          centerTitle: true,
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.white, // or another light color
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
+          selectedLabelStyle: TextStyle(fontFamily: "Inter", fontSize: 15),
+          elevation: 0,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white,
         ),
       ),
       home: const BottomNavBar(),

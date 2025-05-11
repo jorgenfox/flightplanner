@@ -6,18 +6,7 @@ void main() => runApp(SeatBookingApp());
 class SeatBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Vali istekohad',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.grey.shade100,
-        textTheme: Theme.of(
-          context,
-        ).textTheme.apply(fontFamily: 'Arial', bodyColor: Colors.black87),
-      ),
-      home: istekohadpage(),
-    );
+    return MaterialApp(home: istekohadpage());
   }
 }
 
@@ -108,7 +97,6 @@ class _istekohadpageState extends State<istekohadpage> {
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(3),
-            border: Border.all(color: Colors.black26),
           ),
         ),
         Text(label, style: TextStyle(fontSize: 13)),
@@ -119,26 +107,39 @@ class _istekohadpageState extends State<istekohadpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Vali istekohad'),
-        centerTitle: true,
-        elevation: 1,
+        title: Text('Istmed'),
+        elevation: 0,
+        // backgroundColor: Colors.lightBlue,
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 14.0),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 15,
-              runSpacing: 10,
-              children: [
-                buildLegendItem(availableColor, 'Vaba'),
-                buildLegendItem(selectedColor, 'Valitud'),
-                buildLegendItem(exitRowColor, 'Rohkem jalaruumi'),
-                buildLegendItem(businessClassColor, 'Äriklass'),
-                buildLegendItem(bookedColor, 'Broneeritud'),
-              ],
+            child: Container(
+              padding: EdgeInsets.all(
+                10,
+              ), // Optional padding around the legend items
+              decoration: BoxDecoration(
+                color: Colors.white, // Background color of the container
+                borderRadius: BorderRadius.circular(
+                  20,
+                ), // Set the border radius here
+                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+              ),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 15,
+                runSpacing: 10,
+                children: [
+                  buildLegendItem(availableColor, 'Vaba'),
+                  buildLegendItem(selectedColor, 'Valitud'),
+                  buildLegendItem(exitRowColor, 'Rohkem jalaruumi'),
+                  buildLegendItem(businessClassColor, 'Äriklass'),
+                  buildLegendItem(bookedColor, 'Broneeritud'),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -167,7 +168,7 @@ class _istekohadpageState extends State<istekohadpage> {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.grey.shade500,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -269,7 +270,7 @@ class _istekohadpageState extends State<istekohadpage> {
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal,
+                              backgroundColor: Colors.lightBlue,
                               foregroundColor: Colors.white,
                             ),
                             onPressed: () {

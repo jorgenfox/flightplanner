@@ -37,7 +37,9 @@ class _LennudPageState extends State<LennudPage> {
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Viga andmete laadimisel: ${snapshot.error}'));
+            return Center(
+              child: Text('Viga andmete laadimisel: ${snapshot.error}'),
+            );
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {

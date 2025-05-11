@@ -45,16 +45,40 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        selectedLabelStyle: TextStyle(fontFamily: "Inter", fontSize: 15),
+        type: BottomNavigationBarType.shifting,
+        elevation: 0,
         currentIndex: _currentIndex,
-        onTap: (index) => setState(() {
-          _currentIndex = index;
-        }),
+        onTap:
+            (index) => setState(() {
+              _currentIndex = index;
+            }),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Otsing"),
-          BottomNavigationBarItem(icon: Icon(Icons.flight), label: "Lennud"),
-          BottomNavigationBarItem(icon: Icon(Icons.event_seat), label: "Istekohad"),
-          BottomNavigationBarItem(icon: Icon(Icons.airplane_ticket), label: 'Piletid'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Konto'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: "Otsing",
+            backgroundColor: Colors.lightBlue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.flight),
+            label: "Lennud",
+            backgroundColor: Colors.lightBlue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.event_seat),
+            label: "Istekohad",
+            backgroundColor: Colors.lightBlue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.airplane_ticket),
+            label: 'Piletid',
+            backgroundColor: Colors.lightBlue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Konto',
+            backgroundColor: Colors.lightBlue,
+          ),
         ],
       ),
     );
