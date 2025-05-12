@@ -1,3 +1,4 @@
+import 'package:flightplanner/pages/istekohadpage.dart';
 import 'package:flutter/material.dart';
 import '../models/FlightData.dart';
 import '../FlightService.dart';
@@ -61,11 +62,8 @@ class LennudPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.check_circle_outline),
-                          onPressed: () => print('Valitud lend: ${flight.departure} -> ${flight.destination}'),
-                        ),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,13 +72,35 @@ class LennudPage extends StatelessWidget {
                                 'Alguspunkt: ${flight.departure}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              Text('Sihtkoht: ${flight.destination}',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Kuupäev: ${flight.date}',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text('Hind: ${flight.price}',
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(
+                                'Sihtkoht: ${flight.destination}',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Kuupäev: ${flight.date}',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'Hind: ${flight.price}',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ],
+                          ),
+                        ),
+                        // Nupp "Select" paremal
+                        TextButton(
+                          onPressed: () {
+                            // Siin liigume IstekohadPage-le, edastades "flight" andmed
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => istekohadpage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Select',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
