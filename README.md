@@ -57,5 +57,6 @@ Navigate into the project directory.
 Run the following commands:
 
 ```bash
-flutter pub get
+flutter install
+flutter pub get 
 flutter run
