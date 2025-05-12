@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'models/FlightData.dart';
 
 class FlightService {
-  static const String _baseUrl = 'http://localhost:8080/lennud';
+  static const String _baseUrl = 'http://192.168.0.20:8080/lennud';
 
   // Funktsioon lennuandmete pärimiseks
   Future<List<FlightData>> fetchFlights() async {

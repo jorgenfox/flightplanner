@@ -1,11 +1,9 @@
-// lib/core/bottom_nav_bar.dart
-
-import 'package:flightplanner/pages/accountpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flightplanner/pages/homepage.dart';
 import 'package:flightplanner/pages/lennudpage.dart';
 import 'package:flightplanner/pages/istekohadpage.dart';
 import 'package:flightplanner/pages/ticketpage.dart';
+import 'package:flightplanner/pages/accountpage.dart';
 import 'package:flightplanner/models/FlightData.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -19,25 +17,35 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
   final ValueNotifier<FlightData?> flightDataNotifier = ValueNotifier(null);
 
-  late final List<Widget> _screens;
+  // Getter, mis loob ekraanid dünaamiliselt
+  List<Widget> get _screens => [
+    HomePage(
+      onSearch: (data) {
+        flightDataNotifier.value = data;
+        setState(() {
+          _currentIndex = 1; // mine LennudPage ekraanile
+        });
+      },
+    ),
+    ValueListenableBuilder<FlightData?>(
+      valueListenable: flightDataNotifier,
+      builder: (context, flightData, child) {
+        // Kui flightData on null, näita lihtsalt tühi konteiner või placeholder
+        if (flightData == null) {
+          return const Center(child: Text("Palun otsi lende esmalt"));
+        }
+        return LennudPage(filteredFlights: flightData);
+      },
+    ),
+    istekohadpage(),
+    TicketsScreen(),
+    AccountPage(),
+  ];
 
   @override
   void initState() {
     super.initState();
-    _screens = [
-      HomePage(
-        onSearch: (data) {
-          flightDataNotifier.value = data;
-          setState(() {
-            _currentIndex = 1; // switch to LennudPage
-          });
-        },
-      ),
-      LennudPage(), // LennudPage kasutamine
-      istekohadpage(),
-      TicketsScreen(),
-      AccountPage(),
-    ];
+    // Ei ole vaja siin _screens määrata, kuna getter teeb selle töö
   }
 
   @override
@@ -45,14 +53,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedLabelStyle: TextStyle(fontFamily: "Inter", fontSize: 15),
+        selectedLabelStyle: const TextStyle(fontFamily: "Inter", fontSize: 15),
         type: BottomNavigationBarType.shifting,
         elevation: 0,
         currentIndex: _currentIndex,
-        onTap:
-            (index) => setState(() {
-              _currentIndex = index;
-            }),
+        onTap: (index) => setState(() {
+          _currentIndex = index;
+        }),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.search),

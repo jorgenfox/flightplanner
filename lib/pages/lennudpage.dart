@@ -2,22 +2,10 @@ import 'package:flutter/material.dart';
 import '../models/FlightData.dart';
 import '../FlightService.dart';
 
-class LennudPage extends StatefulWidget {
-  const LennudPage({super.key});
+class LennudPage extends StatelessWidget {
+  final FlightData? filteredFlights;  // Filtreeritud lennud
 
-  @override
-  _LennudPageState createState() => _LennudPageState();
-}
-
-class _LennudPageState extends State<LennudPage> {
-  late Future<List<FlightData>> _flights;
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch flights from the server
-    _flights = FlightService().fetchFlights();
-  }
+  const LennudPage({super.key, required this.filteredFlights});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +18,7 @@ class _LennudPageState extends State<LennudPage> {
         title: const Text("Lennud"),
       ),
       body: FutureBuilder<List<FlightData>>(
-        future: _flights,
+        future: FlightService().fetchFlights(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -46,23 +34,61 @@ class _LennudPageState extends State<LennudPage> {
             return const Center(child: Text("Pole andmeid leitud"));
           }
 
-          final flights = snapshot.data!;
+          // Filtreerime andmed vastavalt sellele, mida on otsitud
+          // Kui filtreeritud andmeid pole, näita kõiki lende
+          final flightsToDisplay = (filteredFlights == null)
+              ? snapshot.data!
+              : snapshot.data!.where((flight) {
+            bool matchesDeparture = flight.departure == filteredFlights!.departure;
+            bool matchesDestination = flight.destination == filteredFlights!.destination;
+            bool matchesDate = flight.date == filteredFlights!.date;
+            bool matchesPrice = double.tryParse(flight.price)! <= double.parse(filteredFlights!.price);
+            return matchesDeparture && matchesDestination && matchesDate && matchesPrice;
+          }).toList();
+
 
           return ListView.builder(
-            itemCount: flights.length,
+            itemCount: flightsToDisplay.length,
             itemBuilder: (context, index) {
-              final flight = flights[index];
+              final flight = flightsToDisplay[index];
+              // ...
+
               return Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Alguspunkt: ${flight.departure}'),
-                    Text('Sihtkoht: ${flight.destination}'),
-                    Text('Kuupäev: ${flight.date}'),
-                    Text('Hind: ${flight.price}'),
-                    const SizedBox(height: 16),
-                  ],
+                child: Card(
+                  elevation: 5,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.check_circle_outline),
+                          onPressed: () => print('Valitud lend: ${flight.departure} -> ${flight.destination}'),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Alguspunkt: ${flight.departure}',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text('Sihtkoht: ${flight.destination}',
+                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text('Kuupäev: ${flight.date}',
+                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text('Hind: ${flight.price}',
+                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             },
@@ -72,3 +98,4 @@ class _LennudPageState extends State<LennudPage> {
     );
   }
 }
+

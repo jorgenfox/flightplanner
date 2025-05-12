@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flightplanner/core/bottom_nav_bar.dart';
 import 'package:flightplanner/models/FlightData.dart';
 import 'package:flightplanner/FlightService.dart';
+import 'lennudpage.dart';
 
 class HomePage extends StatefulWidget {
   final Function(FlightData) onSearch;
@@ -202,11 +203,14 @@ class _HomePageState extends State<HomePage> {
                         departure: _selectedDepartureCity!,
                         destination: _selectedDestinationCity!,
                         date: _dateController.text,
-                        price: _price.toStringAsFixed(
-                          0,
-                        ), // Convert the price to string
+                        price: _price.toStringAsFixed(0),
                       );
-                      widget.onSearch(flightData);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LennudPage(filteredFlights: flightData),
+                        ),
+                      );
                     } else {
                       // Show an error message if fields are incomplete
                       ScaffoldMessenger.of(context).showSnackBar(
