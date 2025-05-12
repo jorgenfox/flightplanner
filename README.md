@@ -2,12 +2,6 @@
 
 This project is a starting point for the **FlightPlanner** Flutter application — designed to help you plan and manage your flights efficiently.
 
-
-| Home Screen              | Flight Details            | Ticket Screen            | Flight Seats       | Account Page      |
-|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-| ![Home](screenshots/home.png) | ![Details](screenshots/flights.png) | ![Ticket](screenshots/barcode.png) | ![Barcode](screenshots/seats.png) | ![Success](screenshots/account.png) |
-
-
 ---
 
 ## SDK Setup
@@ -44,6 +38,11 @@ This project is a starting point for the **FlightPlanner** Flutter application �
 - Kristjan Sarv
 
 ---
+## Screenshots 📱
+
+| Home Screen              | Flight Details            | Ticket Screen            | Flight Seats       | Account Page      |
+|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
+| ![Home](screenshots/home.png) | ![Details](screenshots/flights.png) | ![Ticket](screenshots/barcode.png) | ![Barcode](screenshots/seats.png) | ![Success](screenshots/account.png) |
 
 ## Installation Guide 🚀
 
@@ -60,12 +59,11 @@ Follow these steps to set up and run **FlightPlanner** on your machine:
 
 Navigate into the project directory.
 
-Run the following commands:
 
-## Screenshots 📱
+Run the following commands:
 
 ```bash
 flutter install
-flutter pub get 
+flutter pub get
 flutter run
 
