@@ -49,3 +49,13 @@ Follow these steps to set up and run **FlightPlanner** on your machine:
 2. **Clone the repository**  
    ```bash
    git clone <https://github.com/jorgenfox/flightplanner>
+
+## Open the Project
+
+Navigate into the project directory.
+
+Run the following commands:
+
+```bash
+flutter pub get
+flutter run
