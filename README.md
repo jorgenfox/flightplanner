@@ -2,6 +2,12 @@
 
 This project is a starting point for the **FlightPlanner** Flutter application — designed to help you plan and manage your flights efficiently.
 
+
+| Home Screen              | Flight Details            | Ticket Screen            | Flight Seats       | Account Page      |
+|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
+| ![Home](screenshots/home.png) | ![Details](screenshots/flights.png) | ![Ticket](screenshots/barcode.png) | ![Barcode](screenshots/seats.png) | ![Success](screenshots/account.png) |
+
+
 ---
 
 ## SDK Setup
@@ -56,13 +62,10 @@ Navigate into the project directory.
 
 Run the following commands:
 
+## Screenshots 📱
+
 ```bash
 flutter install
 flutter pub get 
 flutter run
 
-## Screenshots 📱
-
-| Home Screen              | Flight Details            | Ticket Screen            | Flight Seats       | Account Page      |
-|:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-| ![Home](screenshots/home.png) | ![Details](screenshots/flights.png) | ![Ticket](screenshots/barcode.png) | ![Barcode](screenshots/seats.png) | ![Success](screenshots/account.png) |
