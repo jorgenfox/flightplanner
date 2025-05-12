@@ -1,21 +1,28 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../state/ticket_store.dart';
+import 'ticketpage.dart';
 
 void main() => runApp(SeatBookingApp());
 
 class SeatBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: istekohadpage());
+    return MaterialApp(
+      home: istekohadPage(),
+      routes: {
+        '/tickets': (context) => TicketsScreen(),
+      },
+    );
   }
 }
 
-class istekohadpage extends StatefulWidget {
+class istekohadPage extends StatefulWidget {
   @override
-  _istekohadpageState createState() => _istekohadpageState();
+  _istekohadPageState createState() => _istekohadPageState();
 }
 
-class _istekohadpageState extends State<istekohadpage> {
+class _istekohadPageState extends State<istekohadPage> {
   final int maxSelectableSeats = 2;
   final int rows = 31;
   final int cols = 5;
@@ -111,21 +118,16 @@ class _istekohadpageState extends State<istekohadpage> {
       appBar: AppBar(
         title: Text('Istmed'),
         elevation: 0,
-        // backgroundColor: Colors.lightBlue,
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 14.0),
             child: Container(
-              padding: EdgeInsets.all(
-                10,
-              ), // Optional padding around the legend items
+              padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.white, // Background color of the container
-                borderRadius: BorderRadius.circular(
-                  20,
-                ), // Set the border radius here
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
               ),
               child: Wrap(
@@ -180,11 +182,11 @@ class _istekohadpageState extends State<istekohadpage> {
                       switch (status) {
                         case SeatStatus.available:
                           color =
-                              row == 14
-                                  ? exitRowColor
-                                  : row < 5
-                                  ? businessClassColor
-                                  : availableColor;
+                          row == 14
+                              ? exitRowColor
+                              : row < 5
+                              ? businessClassColor
+                              : availableColor;
                           break;
                         case SeatStatus.selected:
                           color = selectedColor;
@@ -244,44 +246,44 @@ class _istekohadpageState extends State<istekohadpage> {
           ),
           AnimatedSwitcher(
             duration: Duration(milliseconds: 200),
-            child:
-                hasSelectedSeats()
-                    ? Container(
-                      key: ValueKey('bottom_bar'),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 18,
-                        vertical: 14,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(color: Colors.black12, blurRadius: 6),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Lisatasu: €${getTotalExtraCost().toStringAsFixed(0)}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightBlue,
-                              foregroundColor: Colors.white,
-                            ),
-                            onPressed: () {
-                              // TODO: Implement seat confirmation logic
-                            },
-                            child: Text('Kinnita kohad'),
-                          ),
-                        ],
-                      ),
-                    )
-                    : SizedBox.shrink(key: ValueKey('empty')),
+            child: hasSelectedSeats()
+                ? Container(
+              key: ValueKey('bottom_bar'),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 14,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Lisatasu: €${getTotalExtraCost().toStringAsFixed(0)}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.lightBlue,
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: () {
+                      if (selectedSeatLabels.isNotEmpty) {
+                        TicketStore().selectedSeat = selectedSeatLabels.first;
+                        Navigator.pushNamed(context, '/tickets');
+                      }
+                    },
+                    child: Text('Kinnita kohad'),
+                  ),
+                ],
+              ),
+            )
+                : SizedBox.shrink(key: ValueKey('empty')),
           ),
         ],
       ),

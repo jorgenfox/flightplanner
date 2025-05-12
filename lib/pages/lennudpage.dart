@@ -1,7 +1,10 @@
-import 'package:flightplanner/pages/istekohadpage.dart';
+import 'istekohadpage.dart';
 import 'package:flutter/material.dart';
 import '../models/FlightData.dart';
 import '../FlightService.dart';
+import '../state/ticket_store.dart';
+
+
 
 class LennudPage extends StatelessWidget {
   final FlightData? filteredFlights;  // Filtreeritud lennud
@@ -90,11 +93,12 @@ class LennudPage extends StatelessWidget {
                         // Nupp "Select" paremal
                         TextButton(
                           onPressed: () {
+                            TicketStore().selectedFlight = flight;
                             // Siin liigume IstekohadPage-le, edastades "flight" andmed
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => istekohadpage(),
+                                builder: (context) => istekohadPage(),
                               ),
                             );
                           },

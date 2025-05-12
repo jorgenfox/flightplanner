@@ -37,7 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         return LennudPage(filteredFlights: flightData);
       },
     ),
-    istekohadpage(),
+    istekohadPage(),
     TicketsScreen(),
     AccountPage(),
   ];
