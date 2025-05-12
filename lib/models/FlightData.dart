@@ -4,6 +4,7 @@ class FlightData {
   final String date;
   final String price;
 
+  // Constructor for creating a FlightData instance
   FlightData({
     required this.departure,
     required this.destination,
@@ -11,6 +12,7 @@ class FlightData {
     required this.price,
   });
 
+  // Factory method to create a FlightData instance from JSON data
   factory FlightData.fromJson(Map<String, dynamic> json) {
     return FlightData(
       departure: json['departure'],

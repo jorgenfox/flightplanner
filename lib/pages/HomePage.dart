@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flightplanner/core/bottom_nav_bar.dart';
+import 'package:flightplanner/core/BottomNavBar.dart';
 import 'package:flightplanner/models/FlightData.dart';
 import 'package:flightplanner/FlightService.dart';
-import 'lennudpage.dart';
+import 'FlightsPage.dart';
 
+// Stateful widget for the home page with search functionality
 class HomePage extends StatefulWidget {
   final Function(FlightData) onSearch;
 
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final _departureController = TextEditingController();
   final _destinationController = TextEditingController();
   final _dateController = TextEditingController();
-  double _price = 0.0; // Slider value
+  double _price = 0.0; // Slider value for maximum price
   late List<String> _departureCities; // List of departure cities
   late List<String> _destinationCities; // List of destination cities
   String? _selectedDepartureCity;
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     _fetchCities(); // Fetch the cities from the backend
   }
 
-  // Fetch cities from backend or database
+  // Fetch unique departure and destination cities from the backend
   Future<void> _fetchCities() async {
     try {
       final flightService = FlightService();
@@ -45,16 +46,16 @@ class _HomePageState extends State<HomePage> {
         _destinationCities =
             flights.map((flight) => flight.destination).toSet().toList();
         _selectedDepartureCity =
-            _departureCities.isNotEmpty ? _departureCities[0] : null;
+        _departureCities.isNotEmpty ? _departureCities[0] : null;
         _selectedDestinationCity =
-            _destinationCities.isNotEmpty ? _destinationCities[0] : null;
+        _destinationCities.isNotEmpty ? _destinationCities[0] : null;
       });
     } catch (e) {
       print('Error fetching cities: $e');
     }
   }
 
-  // Show date picker
+  // Show date picker dialog for selecting a date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -73,12 +74,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
       backgroundColor: Colors.lightBlue,
       body: Column(
         mainAxisAlignment:
-            MainAxisAlignment
-                .spaceBetween, // Ensure content is at top and bottom
+        MainAxisAlignment
+            .spaceBetween, // Ensure content is at top and bottom
         children: [
           Expanded(
             child: Center(
@@ -94,17 +94,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ), // Empty space to push the container down
           ),
+          // Search form container
           Container(
             width:
-                350, // Set a fixed width for the form to not stretch too wide
+            350, // Set a fixed width for the form to not stretch too wide
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(30),
-              // borderRadius: BorderRadius.only(
-              //   topLeft: Radius.circular(30),
-              //   topRight: Radius.circular(30),
-              // ),
             ),
             child: Column(
               children: [
@@ -113,15 +110,15 @@ class _HomePageState extends State<HomePage> {
                   value: _selectedDepartureCity,
                   isExpanded: true,
                   decoration: inputStyle(
-                    "Alguspunkt",
+                    "Departure",
                   ), // Reused inputStyle for consistent styling
                   items:
-                      _departureCities.map((city) {
-                        return DropdownMenuItem<String>(
-                          value: city,
-                          child: Text(city),
-                        );
-                      }).toList(),
+                  _departureCities.map((city) {
+                    return DropdownMenuItem<String>(
+                      value: city,
+                      child: Text(city),
+                    );
+                  }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
                       _selectedDepartureCity = newValue;
@@ -135,15 +132,15 @@ class _HomePageState extends State<HomePage> {
                   value: _selectedDestinationCity,
                   isExpanded: true,
                   decoration: inputStyle(
-                    "Sihtkoht",
+                    "Destination",
                   ), // Reused inputStyle for consistent styling
                   items:
-                      _destinationCities.map((city) {
-                        return DropdownMenuItem<String>(
-                          value: city,
-                          child: Text(city),
-                        );
-                      }).toList(),
+                  _destinationCities.map((city) {
+                    return DropdownMenuItem<String>(
+                      value: city,
+                      child: Text(city),
+                    );
+                  }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
                       _selectedDestinationCity = newValue;
@@ -159,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                     child: TextField(
                       controller: _dateController,
                       decoration: inputStyle(
-                        "Kuupäev",
+                        "Date",
                       ), // Reused inputStyle for consistent styling
                     ),
                   ),
@@ -168,7 +165,7 @@ class _HomePageState extends State<HomePage> {
 
                 // Price Slider
                 Text(
-                  'Maksimum hind: ${_price.toStringAsFixed(0)}€',
+                  'Maximum Price: ${_price.toStringAsFixed(0)}€',
                   style: TextStyle(fontFamily: "Inter"),
                 ),
                 SliderTheme(
@@ -215,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                       // Show an error message if fields are incomplete
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Palun täitke kõik väljad!'),
+                          content: Text('Please fill in all fields!'),
                           backgroundColor: Colors.black45,
                         ),
                       );
@@ -225,7 +222,7 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.blue.shade400,
                   ),
                   child: const Text(
-                    "Otsi Lende",
+                    "Search Flights",
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontWeight: FontWeight.normal,
@@ -241,7 +238,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Styling for text fields
+  // Styling function for text fields and dropdowns
   InputDecoration inputStyle(String label) {
     return InputDecoration(
       labelText: label,

@@ -1,13 +1,12 @@
-import 'istekohadpage.dart';
+import 'SeatingPage.dart';
 import 'package:flutter/material.dart';
 import '../models/FlightData.dart';
 import '../FlightService.dart';
 import '../state/ticket_store.dart';
 
-
-
+// Stateless widget for displaying available flights
 class LennudPage extends StatelessWidget {
-  final FlightData? filteredFlights;  // Filtreeritud lennud
+  final FlightData? filteredFlights;  // Filtered flights
 
   const LennudPage({super.key, required this.filteredFlights});
 
@@ -19,28 +18,31 @@ class LennudPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text("Lennud"),
+        title: const Text("Flights"),
       ),
       body: FutureBuilder<List<FlightData>>(
         future: FlightService().fetchFlights(),
         builder: (context, snapshot) {
+          // Display a loading indicator while fetching data
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
+          // Handle errors during data fetching
           if (snapshot.hasError) {
             return Center(
-              child: Text('Viga andmete laadimisel: ${snapshot.error}'),
+              child: Text('Error loading data: ${snapshot.error}'),
             );
           }
 
+          // Handle case where no data is available
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("Pole andmeid leitud"));
+            return const Center(child: Text("No data found"));
           }
 
-          // Filtreerime andmed vastavalt sellele, mida on otsitud
+          // Filter flights based on search criteria
           final flightsToDisplay = (filteredFlights == null)
-              ? snapshot.data! // Kui pole otsingut, siis kõik lennud
+              ? snapshot.data! // Show all flights if no filter is applied
               : snapshot.data!.where((flight) {
             bool matchesDeparture = flight.departure == filteredFlights!.departure;
             bool matchesDestination = flight.destination == filteredFlights!.destination;
@@ -72,29 +74,29 @@ class LennudPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Alguspunkt: ${flight.departure}',
+                                'Departure: ${flight.departure}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Sihtkoht: ${flight.destination}',
+                                'Destination: ${flight.destination}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Kuupäev: ${flight.date}',
+                                'Date: ${flight.date}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Hind: ${flight.price}',
+                                'Price: ${flight.price}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
                         ),
-                        // Nupp "Select" paremal
+                        // Button to select a flight and proceed to seat selection
                         TextButton(
                           onPressed: () {
                             TicketStore().selectedFlight = flight;
-                            // Siin liigume IstekohadPage-le, edastades "flight" andmed
+                            // Navigate to the seat selection page, passing flight data
                             Navigator.push(
                               context,
                               MaterialPageRoute(

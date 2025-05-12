@@ -1,22 +1,25 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../state/ticket_store.dart';
-import 'ticketpage.dart';
+import 'TicketPage.dart';
 
+// Entry point for the seat booking app
 void main() => runApp(SeatBookingApp());
 
+// Main app widget defining routes
 class SeatBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: istekohadPage(),
       routes: {
-        '/tickets': (context) => TicketsScreen(),
+        '/tickets': (context) => TicketPage(),
       },
     );
   }
 }
 
+// Stateful widget for the seat selection page
 class istekohadPage extends StatefulWidget {
   @override
   _istekohadPageState createState() => _istekohadPageState();
@@ -39,6 +42,7 @@ class _istekohadPageState extends State<istekohadPage> {
   @override
   void initState() {
     super.initState();
+    // Initialize the seat map with random booked seats and aisles
     seatMap = List.generate(rows, (row) {
       return List.generate(cols, (col) {
         if (col == 2) return SeatStatus.aisle;
@@ -48,6 +52,7 @@ class _istekohadPageState extends State<istekohadPage> {
     });
   }
 
+  // Toggle the status of a seat when clicked
   void toggleSeat(int row, int col) {
     final currentStatus = seatMap[row][col];
     final label = getSeatLabel(row, col);
@@ -66,15 +71,18 @@ class _istekohadPageState extends State<istekohadPage> {
     });
   }
 
+  // Check if any seats are selected
   bool hasSelectedSeats() {
     return seatMap.any((row) => row.contains(SeatStatus.selected));
   }
 
+  // Get the price for a specific seat based on row
   double? getSeatPrice(int row) {
     if (row < 5 || row == 14) return row == 14 ? 15.0 : 40.0;
     return null;
   }
 
+  // Calculate the total extra cost for selected seats
   double getTotalExtraCost() {
     double total = 0.0;
     for (int row = 0; row < seatMap.length; row++) {
@@ -88,11 +96,13 @@ class _istekohadPageState extends State<istekohadPage> {
     return total;
   }
 
+  // Generate a seat label (e.g., "1A") based on row and column
   String getSeatLabel(int row, int col) {
     final letters = ['A', 'B', '', 'C', 'D'];
     return '${row + 1}${letters[col]}';
   }
 
+  // Build a legend item for the seat status legend
   Widget buildLegendItem(Color color, String label) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -116,11 +126,12 @@ class _istekohadPageState extends State<istekohadPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Istmed'),
+        title: Text('Seats'),
         elevation: 0,
       ),
       body: Column(
         children: [
+          // Seat status legend
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 14.0),
             child: Container(
@@ -135,15 +146,16 @@ class _istekohadPageState extends State<istekohadPage> {
                 spacing: 15,
                 runSpacing: 10,
                 children: [
-                  buildLegendItem(availableColor, 'Vaba'),
-                  buildLegendItem(selectedColor, 'Valitud'),
-                  buildLegendItem(exitRowColor, 'Rohkem jalaruumi'),
-                  buildLegendItem(businessClassColor, 'Äriklass'),
-                  buildLegendItem(bookedColor, 'Broneeritud'),
+                  buildLegendItem(availableColor, 'Available'),
+                  buildLegendItem(selectedColor, 'Selected'),
+                  buildLegendItem(exitRowColor, 'Extra Legroom'),
+                  buildLegendItem(businessClassColor, 'Business Class'),
+                  buildLegendItem(bookedColor, 'Booked'),
                 ],
               ),
             ),
           ),
+          // Seat map grid
           Expanded(
             child: ListView.builder(
               itemCount: rows,
@@ -244,6 +256,7 @@ class _istekohadPageState extends State<istekohadPage> {
               },
             ),
           ),
+          // Bottom bar for confirming selected seats
           AnimatedSwitcher(
             duration: Duration(milliseconds: 200),
             child: hasSelectedSeats()
@@ -261,7 +274,7 @@ class _istekohadPageState extends State<istekohadPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Lisatasu: €${getTotalExtraCost().toStringAsFixed(0)}',
+                    'Extra Cost: €${getTotalExtraCost().toStringAsFixed(0)}',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -278,7 +291,7 @@ class _istekohadPageState extends State<istekohadPage> {
                         Navigator.pushNamed(context, '/tickets');
                       }
                     },
-                    child: Text('Kinnita kohad'),
+                    child: Text('Confirm Seats'),
                   ),
                 ],
               ),

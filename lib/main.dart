@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flightplanner/core/bottom_nav_bar.dart';
+import 'package:flightplanner/core/BottomNavBar.dart';
 
 void main() {
   runApp(const MyApp());

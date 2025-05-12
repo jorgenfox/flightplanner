@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
-class TicketsScreen extends StatelessWidget {
-  const TicketsScreen({super.key});
+// Stateless widget for the ticket page
+class TicketPage extends StatelessWidget {
+  const TicketPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Piletid'),
+        title: const Text('Tickets'),
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
         elevation: 0,
@@ -17,7 +18,7 @@ class TicketsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // tabide valimiseks
+          // Tab bar for selecting ticket status
           Container(
             decoration: BoxDecoration(
               color: const Color(0xFFE0E0E0),
@@ -25,14 +26,14 @@ class TicketsScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                _TicketTab(text: 'Kehtivad', selected: true),
-                _TicketTab(text: 'Aegunud', selected: false),
+                _TicketTab(text: 'Valid', selected: true),
+                _TicketTab(text: 'Expired', selected: false),
               ],
             ),
           ),
           const SizedBox(height: 20),
 
-          // piletikaart
+          // Ticket card displaying flight details
           _TicketCard(),
         ],
       ),
@@ -40,7 +41,7 @@ class TicketsScreen extends StatelessWidget {
   }
 }
 
-// -------------------- ülemine riba --------------------
+// Widget for ticket status tabs
 class _TicketTab extends StatelessWidget {
   final String text;
   final bool selected;
@@ -70,7 +71,7 @@ class _TicketTab extends StatelessWidget {
   }
 }
 
-// -------------------- pileti osa --------------------
+// Widget for displaying a ticket card
 class _TicketCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,7 @@ class _TicketCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // lennu info
+          // Flight information
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
@@ -104,36 +105,36 @@ class _TicketCard extends StatelessWidget {
 
           const Divider(),
 
-          // reisija ja pileti info
+          // Passenger and ticket details
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               children: [
                 _InfoRow(
-                  label1: "Reisija",
+                  label1: "Passenger",
                   value1: "JÖRGEN",
-                  label2: "Dokumendi nr",
+                  label2: "Document No.",
                   value2: "1234567890",
                 ),
                 const SizedBox(height: 10),
                 _InfoRow(
-                  label1: "Pileti nr",
+                  label1: "Ticket No.",
                   value1: "2323 4556 6789",
-                  label2: "Tellimuse nr",
+                  label2: "Order No.",
                   value2: "B2SG28",
                 ),
                 const SizedBox(height: 10),
                 _InfoRow(
-                  label1: "Maksevahend",
+                  label1: "Payment Method",
                   value1: "**** 2462",
-                  label2: "Hind",
+                  label2: "Price",
                   value2: "249.99€",
                 ),
                 const SizedBox(height: 10),
                 _InfoRow(
-                  label1: "Iste",
+                  label1: "Seat",
                   value1: "5D",
-                  label2: "Iste",
+                  label2: "Seat",
                   value2: "9A",
                 ),
               ],
@@ -142,7 +143,7 @@ class _TicketCard extends StatelessWidget {
 
           const Divider(),
 
-          // Barcode
+          // Barcode for boarding pass
           Padding(
             padding: const EdgeInsets.all(16),
             child: BarcodeWidget(
@@ -159,7 +160,7 @@ class _TicketCard extends StatelessWidget {
   }
 }
 
-// -------------------- widgetid --------------------
+// Widget for displaying airport code and city
 class _AirportCode extends StatelessWidget {
   final String code;
   final String city;
@@ -180,6 +181,7 @@ class _AirportCode extends StatelessWidget {
   }
 }
 
+// Widget for displaying a row of ticket information
 class _InfoRow extends StatelessWidget {
   final String label1;
   final String value1;
@@ -199,7 +201,7 @@ class _InfoRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // vasak column
+        // Left column
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -210,7 +212,7 @@ class _InfoRow extends StatelessWidget {
             Text(value1, style: const TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),
-        // parem column
+        // Right column
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

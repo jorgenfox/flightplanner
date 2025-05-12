@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
+// Stateless widget for the account page
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Mock user data (replace with actual user data from your auth system)
-    const String username = "Grupp 2";
-    const String email = "Grupp2@tlu.ee";
+    // Mock user data
+    const String username = "Group 2";
+    const String email = "Group2@tlu.ee";
     const String phone = "+372 1234 5678";
     const String profilePictureUrl =
-        "https://www.tlu.ee/public/esindustrykis-2018/files/mobile/1.jpg"; // Replace with actual image URL or asset
+        "https://www.tlu.ee/public/esindustrykis-2018/files/mobile/1.jpg";
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Konto"),
+        title: const Text("Account"),
         centerTitle: true,
         backgroundColor: Colors.lightBlue,
         foregroundColor: Colors.white,
@@ -25,7 +26,7 @@ class AccountPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Picture and Username
+            // Profile Picture and Username Section
             Center(
               child: Column(
                 children: [
@@ -55,7 +56,7 @@ class AccountPage extends StatelessWidget {
 
             // Account Information Section
             const Text(
-              "Konto andmed",
+              "Account Details",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -63,15 +64,15 @@ class AccountPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            _InfoCard(icon: Icons.email, label: "E-post", value: email),
+            _InfoCard(icon: Icons.email, label: "Email", value: email),
             const SizedBox(height: 12),
-            _InfoCard(icon: Icons.phone, label: "Telefon", value: phone),
+            _InfoCard(icon: Icons.phone, label: "Phone", value: phone),
 
             const SizedBox(height: 32),
 
             // Actions Section
             const Text(
-              "Tegevused",
+              "Actions",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -81,13 +82,13 @@ class AccountPage extends StatelessWidget {
             const SizedBox(height: 12),
             _ActionButton(
               icon: Icons.edit,
-              text: "Muuda profiili",
+              text: "Edit Profile",
               onPressed: () {
                 // TODO: Implement profile editing functionality
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     backgroundColor: Colors.black45,
-                    content: Text("Profiili muutmine pole veel saadaval"),
+                    content: Text("Profile editing is not yet available"),
                   ),
                 );
               },
@@ -95,13 +96,13 @@ class AccountPage extends StatelessWidget {
             const SizedBox(height: 8),
             _ActionButton(
               icon: Icons.lock,
-              text: "Muuda parooli",
+              text: "Change Password",
               onPressed: () {
                 // TODO: Implement password change functionality
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     backgroundColor: Colors.black45,
-                    content: Text("Parooli muutmine pole veel saadaval"),
+                    content: Text("Password change is not yet available"),
                   ),
                 );
               },
@@ -109,13 +110,13 @@ class AccountPage extends StatelessWidget {
             const SizedBox(height: 8),
             _ActionButton(
               icon: Icons.logout,
-              text: "Logi välja",
+              text: "Log Out",
               onPressed: () {
                 // TODO: Implement logout functionality
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     backgroundColor: Colors.black45,
-                    content: Text("Väljalogimine pole veel saadaval"),
+                    content: Text("Logout is not yet available"),
                   ),
                 );
               },
@@ -128,7 +129,7 @@ class AccountPage extends StatelessWidget {
   }
 }
 
-// Widget for displaying account information
+// Widget for displaying account information cards
 class _InfoCard extends StatelessWidget {
   final IconData icon;
   final String label;
