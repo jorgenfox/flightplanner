@@ -32,7 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       builder: (context, flightData, child) {
         // Kui flightData on null, näita lihtsalt tühi konteiner või placeholder
         if (flightData == null) {
-          return const Center(child: Text("Palun otsi lende esmalt"));
+          return  LennudPage(filteredFlights: null);
         }
         return LennudPage(filteredFlights: flightData);
       },

@@ -35,9 +35,8 @@ class LennudPage extends StatelessWidget {
           }
 
           // Filtreerime andmed vastavalt sellele, mida on otsitud
-          // Kui filtreeritud andmeid pole, näita kõiki lende
           final flightsToDisplay = (filteredFlights == null)
-              ? snapshot.data!
+              ? snapshot.data! // Kui pole otsingut, siis kõik lennud
               : snapshot.data!.where((flight) {
             bool matchesDeparture = flight.departure == filteredFlights!.departure;
             bool matchesDestination = flight.destination == filteredFlights!.destination;
@@ -46,12 +45,10 @@ class LennudPage extends StatelessWidget {
             return matchesDeparture && matchesDestination && matchesDate && matchesPrice;
           }).toList();
 
-
           return ListView.builder(
             itemCount: flightsToDisplay.length,
             itemBuilder: (context, index) {
               final flight = flightsToDisplay[index];
-              // ...
 
               return Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -98,4 +95,3 @@ class LennudPage extends StatelessWidget {
     );
   }
 }
-
