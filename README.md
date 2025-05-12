@@ -56,14 +56,13 @@ Navigate into the project directory.
 
 Run the following commands:
 
+```bash
+flutter install
+flutter pub get 
+flutter run
+
 ## Screenshots 📱
 
 | Home Screen              | Flight Details            | Ticket Screen            | Flight Seats       | Account Page      |
 |:------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
 | ![Home](screenshots/home.png) | ![Details](screenshots/flights.png) | ![Ticket](screenshots/barcode.png) | ![Barcode](screenshots/seats.png) | ![Success](screenshots/account.png) |
-
-
-```bash
-flutter install
-flutter pub get 
-flutter run
